@@ -1,0 +1,46 @@
+import React, {Fragment} from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import registerServiceWorker from './registerServiceWorker';
+
+
+function Glossary(props) {
+    console.log(props)
+    return (
+        <div>
+            <dl>
+                {props.items.map(item => (
+                    // Without the `key`, React will fire a key warning
+                    <Fragment key={item.id}>
+                        <dt>{item.term}</dt>
+                        <dd>{item.description}</dd>
+                    </Fragment>
+                ))}
+            </dl>
+            <span>方式二</span>
+            <dl>
+                {props.items.map(item => (
+                    <ListItem item={item}/>
+                ))}
+            </dl>
+        </div>
+    );
+}
+
+function ListItem({item}) {
+    return (
+        <div>
+            <dt>{item.term}</dt>
+            <dd>{item.description}</dd>
+        </div>
+    );
+}
+
+ReactDOM.render(
+    <div>
+        <Glossary items={[{"id": 1, "term": "词条", "description": "描述"}]}/>
+        <label htmlFor="namedInput">Name:</label>
+        <input id="namedInput" type="text" name="name"/>
+    </div>
+    , document.getElementById('root'));
+registerServiceWorker();
